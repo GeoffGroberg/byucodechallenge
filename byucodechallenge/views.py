@@ -13,9 +13,9 @@ def chess_board(request):
             try:
                 # get recommended move
                 api_response = requests.get('https://syzygy-tables.info/api/v2?fen=' + Board.fen)
-            except:
+            except requests.exceptions.RequestException as e:
                 # our api call failed
-                Board.api_error = sys.exc_info()[0]
+                Board.api_error = e
             try:
                 # convert to json and get the first option in 'moves'
                 moves = json.loads(api_response.text)['moves']

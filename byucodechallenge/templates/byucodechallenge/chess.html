@@ -13,7 +13,7 @@
 			{% if board.moved %}
 				<p>moved: {{board.moved}}</p>
 				{% if board.api_error %}
-				<p>api error?</p>
+				<p>api error: {{board.api_error}}</p>
 				{% endif %}
 			{% else %}
 				<form method="post" accept-charset="utf-8">
