@@ -25,7 +25,7 @@ SECRET_KEY = 'qrmvg1l1da+#7c2hr9o8l^^%@x@4xxk#lhrl!+v(n7oo-nsrf3'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'byucodechallenge.pythonanywhere.com']
 
 
 # Application definition
