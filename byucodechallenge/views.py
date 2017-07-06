@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import ChessBoard
-import requests, json
+import sys, requests, json
 
 def chess_board(request):
     # new chess board layout
@@ -13,12 +13,17 @@ def chess_board(request):
             try:
                 # get recommended move
                 api_response = requests.get('https://syzygy-tables.info/api/v2?fen=' + Board.fen)
+            except:
+                # our api call failed
+                Board.api_error = sys.exc_info()[0]
+            try:
                 # convert to json and get the first option in 'moves'
                 moves = json.loads(api_response.text)['moves']
                 recommended_move = next(iter(moves))
                 # move pieces
                 Board.move(recommended_move)
             except:
-                Board.moved = 'no recommended move (invalid FEN?)'
+                # the api didn't return a move, probably because the FEN is invalid
+                Board.moved = 'no recommended move from API'
     # pass the chess board to the view template
     return render(request, 'byucodechallenge/chess.html', {'board': Board})

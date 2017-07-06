@@ -12,6 +12,9 @@
 			<p>FEN: {{board.fen}}</p>
 			{% if board.moved %}
 				<p>moved: {{board.moved}}</p>
+				{% if board.api_error %}
+				<p>api error?</p>
+				{% endif %}
 			{% else %}
 				<form method="post" accept-charset="utf-8">
 					{% csrf_token %}
