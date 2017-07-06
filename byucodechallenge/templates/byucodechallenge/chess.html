@@ -1,0 +1,44 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>BYU Code Challenge</title>
+	</head>
+	<body style="text-align: center">
+		<h1>BYU Code Challenge</h1>
+		<br>
+		{% if board.fen %}
+			<pre>{{ board.text }}</pre>
+			<br>
+			<p>FEN: {{board.fen}}</p>
+			{% if board.moved %}
+				<p>moved: {{board.moved}}</p>
+			{% else %}
+				<form method="post" accept-charset="utf-8">
+					{% csrf_token %}
+					<input type="hidden" name="fen" value="{{board.fen}}">
+					<input type="hidden" name="move" value="true">
+					<p><input type="submit" value="Next Move &rarr;"></p>
+				</form>
+			{% endif %}
+		<p><a href="{% url 'chess_board' %}">start over</a></p>
+		{% else %}
+			<form method="post" accept-charset="utf-8">
+				{% csrf_token %}
+				<label for="fen">FEN</label>
+				<input type="text" name="fen" value="" id="fen" size="40">
+				<input type="submit" value="submit">
+			</form>
+			<br>
+			<div style='text-align: left; display: inline-block;'>
+				<h4>Example FENs:</h4>
+				<ul>
+					<li>rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1</li>
+					<li>8/4npk1/5p1p/1Q5P/1p4P1/4r3/7q/3K1R2 b - - 1 49</li>
+					<li>5r1k/6pp/4Qpb1/p7/8/6PP/P4PK1/3q4 b - - 4 37</li>
+					<li>8/8/2P5/4B3/1Q6/4K3/6P1/3k4 w - - 5 67</li>
+					<li>r2q1rk1/pp2ppbp/2p2np1/6B1/3PP1b1/Q1P2N2/P4PPP/3RKB1R b K - 0 13</li>
+				</ul>
+			</div>
+		{% endif %}
+	</body>
+</html>
